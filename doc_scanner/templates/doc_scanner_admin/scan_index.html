@@ -1,0 +1,81 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+
+{% block admin_content %}
+
+            <div class="row">
+                <div class="col-md-12 mt-md-3 text-center">
+                    <h3>Elibot Scanner</h3>
+                </div>
+
+                <div class="col-md-12 mt-4 mb-3">
+                    <div class="card" style="padding: 35px;" align="center">
+                        <div class="row">
+                            <div class="left card-title">
+                                <b>Product Management</b>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="{% url 'elibot-scanner-files-list' %}">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5> Source/ Target</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Doc Type</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Template</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                         <div class="row mt-4">
+                            <div class="col-md-4">
+                                <a href="{% url 'elibot-scanner' %}">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5> Capture</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>other</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>other</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+

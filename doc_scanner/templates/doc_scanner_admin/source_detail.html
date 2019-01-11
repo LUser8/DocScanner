@@ -1,0 +1,31 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+{% block admin_content %}
+    <div class="row">
+        <div class="col-md-12 mt-md-3 text-center">
+            <h3>Source Detail</h3>
+        </div>
+        <div class="col-md-12 mt-md-2  card p-3" >
+            <h2>{{ object.source_name }}</h2>
+            {% if object.source_type == "google_drive" %}
+                <h5>Source Type: Google Drive</h5>
+                <h6>User Email: {{ object.drive_userId }}</h6>
+            {% elif object.source_type == "remote" %}
+                <h5>Source Type: Remote System</h5>
+                <h6>IP: {{ object.remote_systemIP }}</h6>
+                <h6>User: {{ object.remote_username }}</h6>
+            {% endif %}
+            <div class="row">
+                <div class="col-6">
+                    <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-update' object.id %}">Update</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-delete' object.id%}">delete</a>
+                </div>
+                <div class="col-6">
+                    <a class="btn btn-secondary btn-sm" href="{% url 'elibot-scanner-files-list' %}">View Files</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+<!--<a class="btn btn-secondary" href="{% url 'elibot-scanner-source-detail' object.id %}">View Info</a>-->

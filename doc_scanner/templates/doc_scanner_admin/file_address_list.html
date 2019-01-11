@@ -1,0 +1,64 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+
+{% block admin_content %}
+    <div class="row">
+                <div class="col-md-12 mt-md-3 text-center">
+                    <h3>Source/ Target Setup</h3>
+                </div>
+
+                <div class="col-md-12 mt-md-5">
+                    <div class="card" style="padding: 35px;" align="center">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-left ml-md-2">Existing Source/Target List</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{% url 'elibot-scanner-file-create' %}" class="btn btn-outline-primary btn-sm mb-3">Create New</a>
+                            </div>
+                        </div><hr class="mt-0 md-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% if object_list %}
+                                    <table class="table table-bordered table-hover">
+                                          <thead>
+                                            <tr>
+                                              <th>Source Name</th>
+                                              <th>User</th>
+                                              <th>Location</th>
+                                              <th>Last Updated</th>
+                                              <th></th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for object in object_list %}
+                                                <tr>
+                                                    <td colspan="1">{{ object.source.source_name }}</td>
+                                                        {% if object.source.source_type == "google_drive" %}
+                                                            <td colspan="1">{{ object.source.drive_userId }}</td>
+                                                        {% elif object.source.source_type == "remote" %}
+                                                            <td colspan="1">{{ object.source.remote_username }}</td>
+                                                        {% endif %}
+                                                    <td colspan="1">Location</td>
+                                                    <td colspan="1">{{ object.last_updated_date }}</td>
+                                                    <td colspan="1"><a class="btn btn-secondary btn-sm" href="#">modify</a></td>
+                                                </tr>
+                                            {% endfor %}
+
+                                          </tbody>
+                                          <tfoot>
+                                            <tr>
+                                              <td colspan="5" class="text-center">footer </td>
+                                            </tr>
+                                          </tfoot>
+                                    </table>
+                                  {% else %}
+                                        <h5>Not Source Defined Yet</h5>
+                                  {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+{% endblock %}
+
+

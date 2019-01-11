@@ -1,0 +1,92 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+
+{% block admin_content %}
+
+            <div class="row">
+                <div class="col-md-12 mt-md-3 text-center">
+                    <h3>Application Setup</h3>
+                </div>
+
+                <div class="col-md-12 mt-md-5">
+                    <div class="card" style="padding: 35px;" align="center">
+
+                        <div class="row">
+                            <div class="left card-title">
+                                <b>User Management</b>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">group icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Groups</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">person icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Users</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">other icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Other</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-4 mb-3">
+                    <div class="card" style="padding: 35px;" align="center">
+                        <div class="row">
+                            <div class="left card-title">
+                                <b>Product Management</b>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="{% url 'elibot-scanner' %}">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Elibot Scanning</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Elibot Response</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                                        <i class="indigo-text text-lighten-1 large material-icons">app icon</i>
+                                        <span class="indigo-text text-lighten-1"><h5>Elibot Reconciliation</h5></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+

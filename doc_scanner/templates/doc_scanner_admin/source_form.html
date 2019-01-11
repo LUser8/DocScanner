@@ -1,0 +1,32 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+{% load crispy_forms_tags %}
+{% block admin_content %}
+    <div class="row">
+        <div class="col-md-12 mt-md-3 text-center">
+            <h3>Create New Source/ Target</h3>
+        </div>
+        <div class="col-md-12 mt-md-5">
+            <div style="padding: 15px;">
+                <div class="content-section">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Define Source</legend>
+                            {{ form|crispy }}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-info" type="submit">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    var source_type = document.getElementById("id_source_type");
+    source_type.addEventListener("change", function(){
+        console.log(source_type.value);
+    });
+
+</script>
+{% endblock %}

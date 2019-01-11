@@ -1,0 +1,94 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+
+{% block admin_content %}
+    <div class="row">
+        <div class="col-md-12 mt-md-2 text-center">
+            <h3>Elibot Scanning</h3>
+        </div>
+        <div class="col-md-12 mt-3 card" style="padding: 0px;">
+            <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Sources/ Targets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Document Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#messages" role="tab">Capture Processes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#messages" role="tab">Templates</a>
+                    </li>
+                </ul>
+        </div>
+
+        <div class="col-md-12 md-4 card">
+            <!--<div class="card" style="padding: 35px;" align="center">-->
+
+
+                <div class="tab-content mt-3">
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-left ml-md-2">Google Drive</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-outline-primary btn-sm mb-3">Add New</a>
+                            </div>
+                        </div>
+                        <table class="table table-sm content-list">
+                            <thead>
+                            <tr><th width="30%">UserEmail</th>
+                                <th width="20%">File Url</th>
+                                <th>Last Updated</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr></thead>
+                            <tbody>
+                            <!--<tr>-->
+                                <!--<td>atul.tiwari@elitingbiz.us</td>-->
+                                <!--<td>bburne</td>-->
+                                <!--<td>2/14/2017 9:45 a.m.</td>-->
+                                <!--<td><span class="text-success">Active Token</span></td>-->
+                                <!--<td><a href="#">edit</a></td>-->
+                            <!--</tr>-->
+                            </tbody>
+                        </table>
+                        <a href="#" class="btn btn-outline-primary mb-3">View all </a><hr>
+                        <!--<h5><i class="fa fa-newspaper-o text-muted mr-2"></i>Remote</h5>-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-left ml-md-2">Remote Location</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" class="btn btn-outline-primary btn-sm mb-3">Add New</a>
+                            </div>
+                        </div>
+                        <table class="table table-sm content-list">
+                            <thead>
+                            <tr>
+                                <th width="30%">Remote Location(IP)</th>
+                                <th>User</th>
+                                <th>Last Updated</th>
+                                <th>File location</th>
+                                <th></th>
+                            </tr></thead>
+                            <tbody>
+                            <!--<tr>-->
+                                <!--<td>192.168.0.3</td>-->
+                                <!--<td>root</td>-->
+                                <!--<td>2/14/2017 9:45 a.m.</td>-->
+                                <!--<td><span class="text-success">/u01/passports</span></td>-->
+                                <!--<td><a href="#">edit</a></td>-->
+                            <!--</tr>-->
+                            </tbody>
+                        </table>
+                        <a href="#" class="btn btn-outline-primary mb-3">View all</a>
+                    </div>
+                    <div class="tab-pane" id="profile" role="tabpanel">...</div>
+                    <div class="tab-pane" id="messages" role="tabpanel">...</div>
+                </div>
+            </div>
+        <!--</div>-->
+    </div>
+{% endblock %}

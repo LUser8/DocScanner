@@ -1,0 +1,16 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+{% block admin_content %}
+    <div class="row">
+        <div class="col-md-12 mt-md-3 text-center">
+            <h3>Source Detail</h3>
+        </div>
+        <div class="col-md-12 mt-md-2  card p-3" >
+            <form method="post">{% csrf_token %}
+                <p>Are you sure you want to delete "{{ object }}"?</p>
+                <input type="submit" class="btn btn-secondary btn-sm" value="Confirm">
+                <a class="btn btn-danger btn-sm" href="{% url 'elibot-scanner-source-detail' object.id %}">Cancel</a>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

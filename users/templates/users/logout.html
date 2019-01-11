@@ -1,0 +1,9 @@
+{% extends "elibot_app_admin/base.html" %}
+{% block content %}
+    <h1>You have been Logged out Successfully</h1>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a class="ml-2" href="{% url 'login' %}">Log In Again</a>
+            </small>
+        </div>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends "elibot_app_admin/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% block admin_content %}
+                {% endblock %}
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mt-md-5" style="padding: 35px;" align="center">
+                <h3>Elibot Application</h3>
+                <p class='text-muted'>You can put any information here you'd like.
+                  <ul class="list-group">
+                    <li class="list-group-item list-group-item-light">Recent Activity</li>
+                    <li class="list-group-item list-group-item-light">Announcements</li>
+                    <li class="list-group-item list-group-item-light">Calendars</li>
+                    <li class="list-group-item list-group-item-light">etc</li>
+                  </ul>
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

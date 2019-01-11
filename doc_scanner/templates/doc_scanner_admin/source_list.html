@@ -1,0 +1,33 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+
+{% block admin_content %}
+    <div class="row">
+        <div class="col-md-12 mt-md-3 text-center">
+            <h3>Source List</h3>
+        </div>
+
+        {% if object_list %}
+            {% for object in object_list %}
+            <div class="col-md-12 mt-md-2  card p-3" >
+                <h2>{{ object.source_name }}</h2>
+                <h5>{{ object.source_type }}</h5>
+                <a class="btn btn-secondary" href="{% url 'elibot-scanner-source-detail' object.id %}">View Info</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12 mt-md-3  card p-3" >
+                <div class="row">
+                    <div class="col-6">
+                        <h4>Not Any Source Defined yet!</h4>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-create' %}">Add New</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+
+    </div>
+{% endblock %}
