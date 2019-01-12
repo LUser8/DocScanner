@@ -1,0 +1,45 @@
+{% extends "elibot_app_admin/admin_base.html" %}
+{% load crispy_forms_tags %}
+{% block admin_content %}
+    <div class="row">
+        <div class="col-md-12 mt-md-3 text-center">
+            <h3>Create New Source/ Target</h3>
+        </div>
+        <div class="col-md-12 mt-md-5">
+            <div style="padding: 15px;">
+                <div class="content-section">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Define Source Type</legend>
+                            <label>Source Type</label>
+                            <select name="source_type" id="id_source_type" class="select form-control" required>
+                                <option value="google_drive">Google Drive</option>
+                                <option value="remote_system">Remote System</option>
+                            </select>
+                            <div id="id_source_form" style="display:none;"></div>
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-info" type="submit">Continue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    var source_type = document.getElementById("id_source_type");
+    var source_form = document.getElementById("id_source_form");
+    //var form = document.getElementById("id_form");
+
+    source_type.addEventListener("change", function(){
+        if (source_type.value == 'remote_system' ){
+            console.log("Remote System");
+            source_form.style.display = "block";
+            source_form.innerHTML = '{{ form|crispy }}';
+        }
+    });
+
+</script>
+{% endblock %}
+

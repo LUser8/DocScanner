@@ -30,7 +30,7 @@ class Source(django_models.Model):
     )
 
     source_type = djongo_models.CharField(max_length=20, choices=FILE_LOCATION, default=GoogleDRIVE)
-    source_name = djongo_models.CharField(max_length=100, default=None)
+    source_name = djongo_models.CharField(max_length=100, unique=True)
     drive_userId = djongo_models.EmailField(blank=True)
     drive_auth_token = djongo_models.CharField(max_length=300, editable=False, blank=True)
     drive_refresh_token = djongo_models.CharField(max_length=300, editable=False, blank=True)

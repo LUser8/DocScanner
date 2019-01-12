@@ -19,11 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from users import views as user_views
+from doc_scanner import views as doc_scan_views
 
+doc_scan_views.set_app_credential()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('docs/', include('doc_scanner.urls')),
+    path('google/login/', doc_scan_views.login_uri, name='google-login'),
+    path('google/login/save', doc_scan_views.auth_code_handler, name='google_token_rcv'),
     # path('register/', user_views.register, name="register"),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),

@@ -25,8 +25,9 @@ SECRET_KEY = 'eynfits-=5g^u(5)7m$cgc9&)rh9srk#t^f9@y&!y1r=+_ivnq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.3', 'localhost']
 
+PORT = 8001
 
 # Application definition
 
@@ -132,5 +133,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'doc-scanner-dashboard'
+
+
 
 
