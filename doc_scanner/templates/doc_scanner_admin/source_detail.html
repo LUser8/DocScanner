@@ -9,14 +9,14 @@
             {% if object.source_type == "google_drive" %}
                 <h5>Source Type: Google Drive</h5>
                 <h6>User Email: {{ object.drive_userId }}</h6>
-            {% elif object.source_type == "remote" %}
+            {% elif object.source_type == "remote_system" %}
                 <h5>Source Type: Remote System</h5>
                 <h6>IP: {{ object.remote_systemIP }}</h6>
                 <h6>User: {{ object.remote_username }}</h6>
             {% endif %}
             <div class="row">
                 <div class="col-6">
-                    <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-update' object.id %}">Update</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-update' object.id %}">update</a>
                     <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-delete' object.id%}">delete</a>
                 </div>
                 <div class="col-6">

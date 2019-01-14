@@ -7,4 +7,4 @@ class SourceRemoteForm(forms.ModelForm):
 
     class Meta:
         model = Source
-        fields = ['source_name', 'remote_systemIP', 'remote_username', 'remote_password']
+        fields = ['remote_systemIP', 'remote_username', 'remote_password']

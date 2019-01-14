@@ -10,6 +10,16 @@
                 <div class="content-section">
                     <form method="POST">
                         {% csrf_token %}
+                        {% if source_type_drive %}
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4">Define Source Type</legend>
+                                <label>Source Name</label>
+                                <input type="text" name="source_name" required>
+                            </fieldset>
+                            <div class="form-group">
+                                <button class="btn btn-outline-info" type="submit">Create</button>
+                            </div>
+                        {% else %}
                         <fieldset class="form-group">
                             <legend class="border-bottom mb-4">Define Source Type</legend>
                             <label>Source Type</label>
@@ -17,26 +27,37 @@
                                 <option value="google_drive">Google Drive</option>
                                 <option value="remote_system">Remote System</option>
                             </select>
-                            <div id="id_source_form" style="display:none;"></div>
+                            <div id="id_source_form"></div>
                         </fieldset>
                         <div class="form-group">
-                            <button class="btn btn-outline-info" type="submit">Continue</button>
+                            <button class="btn btn-outline-info" id="id_source_create" type="submit">Continue</button>
                         </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <div id="id_source_form_master" style="display:none;">{{ form|crispy }}</div>
 <script type="text/javascript">
     var source_type = document.getElementById("id_source_type");
+    var source_form_master = document.getElementById("id_source_form_master");
     var source_form = document.getElementById("id_source_form");
+    var source_create = document.getElementById("id_source_create");
     //var form = document.getElementById("id_form");
 
     source_type.addEventListener("change", function(){
         if (source_type.value == 'remote_system' ){
             console.log("Remote System");
-            source_form.style.display = "block";
-            source_form.innerHTML = '{{ form|crispy }}';
+            source_create.innerHTML = 'Create';
+            source_form_master.style.display = 'block';
+            source_form.appendChild(source_form_master);
+        }
+        else if (source_type.value == 'google_drive' ){
+            source_create.innerHTML = 'Continue';
+            source_form_master.parentNode.removeChild(source_form_master);
+            console.log("Google Drive");
+
         }
     });
 

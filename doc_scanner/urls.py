@@ -11,6 +11,7 @@ urlpatterns = [
     path("scan/create/", FileAddressCreateView.as_view(), name="elibot-scanner-file-create"),
     path("scan/source/", SourceListView.as_view(), name="elibot-scanner-source-list"),
     path("scan/source/create/", views.source_select, name="elibot-scanner-source-select"),
+    path("scan/source/create/files/<int:pk>", views.file_list, name="elibot-scanner-source-files-list"),
     # path("scan/source/create/", SourceCreateView.as_view(), name="elibot-scanner-source-create"),
     path("scan/source/update/<int:pk>/", SourceUpdateView.as_view(), name="elibot-scanner-source-update"),
     path("scan/source/<int:pk>/", SourceDetailView.as_view(), name="elibot-scanner-source-detail"),

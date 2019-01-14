@@ -22,11 +22,11 @@
                                     <table class="table table-bordered table-hover">
                                           <thead>
                                             <tr>
-                                              <th>Source Name</th>
-                                              <th>User</th>
-                                              <th>Location</th>
-                                              <th>Last Updated</th>
-                                              <th></th>
+                                                <th>Source Name</th>
+                                                <th>User</th>
+                                                <th>Location</th>
+                                                <!--<th>Last Updated</th>-->
+                                                <th></th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -39,7 +39,7 @@
                                                             <td colspan="1">{{ object.source.remote_username }}</td>
                                                         {% endif %}
                                                     <td colspan="1">Location</td>
-                                                    <td colspan="1">{{ object.last_updated_date }}</td>
+                                                    <!--<td colspan="1">{{ object.last_updated_date }}</td>-->
                                                     <td colspan="1"><a class="btn btn-secondary btn-sm" href="#">modify</a></td>
                                                 </tr>
                                             {% endfor %}

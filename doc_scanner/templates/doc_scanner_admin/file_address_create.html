@@ -8,7 +8,7 @@
         <div class="col-md-12 mt-md-5">
             <div style="padding: 15px;">
                 <div class="content-section">
-                    <form method="POST">
+                    <form method="POST" id="id_form_list">
                         {% csrf_token %}
                         <fieldset class="form-group">
                             <legend class="border-bottom mb-4">Define Source Location</legend>
@@ -24,13 +24,27 @@
                                     <a href="{% url 'elibot-scanner-source-list' %}" class="btn btn-outline-primary btn-sm mb-3">View List</a>
                                 </div>
                         </div>
-
-                            <!--<select name="source_id" class="select form-control" id="id_source_id">-->
-                                <!--<div id="object_selector_start"></div>-->
-                                <!--<option value="{{ obj.id }}">{{ obj }}</option>-->
-
-                            <!--</select>-->
-                            {{ form.file_list|as_crispy_field }}
+                            <div id="id_file_list">
+                                <table class="table table-bordered table-hover" id="id_file_list_table">
+                                    <thead>
+                                        <tr>
+                                            <th style="display:none">obj_id</th>
+                                            <th>File Type</th>
+                                            <th>File Name</th>
+                                            <th>select</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="id_tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="id_form_files">
+                                {{ form.file_list|as_crispy_field }}
+                                <input type="hidden" name="file_list-TOTAL_FORMS" value="1" id="id_file_list-TOTAL_FORMS">
+                                <input type="hidden" name="file_list-INITIAL_FORMS" value="0" id="id_file_list-INITIAL_FORMS">
+                                <input type="hidden" name="file_list-MIN_NUM_FORMS" value="0" id="id_file_list-MIN_NUM_FORMS">
+                                <input type="hidden" name="file_list-MAX_NUM_FORMS" value="1000" id="id_file_list-MAX_NUM_FORMS">
+                            </div>
                         </fieldset>
                         <div class="form-group">
                             <button class="btn btn-outline-info" type="submit">Create</button>
@@ -41,10 +55,105 @@
         </div>
     </div>
 <script>
-    var source_type = document.getElementById("id_source_type");
-    source_type.addEventListener("change", function(){
-        console.log(source_type.value);
+    var source = document.getElementById('id_source');
+    var table_elm = document.getElementById('id_file_list_table');
+    var xhr = new XMLHttpRequest();
+    var source_id = source.value;
+    var obj;
+    var form_list = document.getElementById("id_form_list");
+    var form_files = document.getElementById("id_form_files");
+
+    source.addEventListener("change", function(){
+        var tbody_ = document.getElementsByTagName("tbody");
+        tbody_[0].parentNode.removeChild(tbody_[0]);
+        source_id = source.value;
+        var url = '{% url "elibot-scanner-source-files-list" 0 %}'.replace('0', source_id);
+        xhr.open('GET', url);
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            obj = JSON.parse(xhr.responseText);
+            console.log(obj.files.length);
+            console.log(obj.files);
+            if (obj.files.length > 0){
+                var tbody = document.createElement("tbody");
+                for (var i=0; i<obj.files.length; i++){
+                    row = document.createElement("tr");
+                    row.setAttribute("file_obj", i.toString());
+                    col1 = document.createElement("td");
+                    col2 = document.createElement("td");
+                    col3 = document.createElement("td");
+                    var file_type = document.createTextNode(obj.files[i].mimeType);
+                    var file_name = document.createTextNode(obj.files[i].name);
+                    var select_check = document.createElement("input");
+                    select_check.setAttribute("type", "checkbox");
+                    select_check.className = "check_list";
+                    select_check.setAttribute("value", i);
+                    col1.appendChild(file_type);
+                    col2.appendChild(file_name);
+                    col3.appendChild(select_check);
+                    row.appendChild(col1);
+                    row.appendChild(col2);
+                    row.appendChild(col3);
+                    tbody.appendChild(row);
+                }
+                table_elm.appendChild(tbody);
+
+            }
+        }
+        else {
+            alert('Request failed.  Returned status of ' + xhr.status);
+        }
+        };
+        xhr.send();
     });
 
+    form_list.addEventListener("submit", function(event){
+        event.preventDefault();
+        var checked_loc = document.getElementsByClassName("check_list");
+        var count = 0;
+        if (checked_loc.length > 0){
+            for (var i=0;i<checked_loc.length;i++){
+                if (checked_loc[i].checked) {
+                    console.log(i, checked_loc[i].value);
+
+                    let file_address = document.createElement("input");
+                    file_address.setAttribute("type", "text");
+                    file_address.setAttribute("name", "file_list-"+count.toString()+'-file_address');
+                    file_address.setAttribute("value", obj.files[i].id);
+                    file_address.setAttribute("id", "id_file_list-"+count.toString()+"-file_address");
+
+                    let file_name = document.createElement("input");
+                    file_name.setAttribute("type", "text");
+                    file_name.setAttribute("name", "file_list-"+count.toString()+'-file_name');
+                    file_name.setAttribute("id", "id_file_list-"+count.toString()+'-file_name');
+                    file_name.setAttribute("value", obj.files[i].name);
+
+                    let file_type = document.createElement("input");
+                    file_type.setAttribute("type", "text");
+                    file_type.setAttribute("name", "file_list-"+count.toString()+'-file_mime_type');
+                    file_type.setAttribute("id", "id_file_list-"+count.toString()+'-file_mime_type');
+                    file_type.setAttribute("value", obj.files[i].mimeType);
+
+                    let file_delete = document.createElement("input");
+                    file_delete.setAttribute("type", "checkbox");
+                    file_delete.setAttribute("name", "file_list-"+count.toString()+'-DELETE');
+                    file_delete.setAttribute("id", "id_file_list-"+count.toString()+'-DELETE');
+
+                    form_files.appendChild(file_address);
+                    form_files.appendChild(file_name);
+                    form_files.appendChild(file_type);
+                    form_files.appendChild(file_delete);
+
+                    count++;
+                }
+            }
+            if (count > 0) {
+                this.submit();
+            }
+            else{
+            alert("You have to select minimum one location to continue");
+        }
+        }
+    });
 </script>
 {% endblock %}
