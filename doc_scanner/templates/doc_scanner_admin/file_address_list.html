@@ -24,7 +24,7 @@
                                             <tr>
                                                 <th>Source Name</th>
                                                 <th>User</th>
-                                                <th>Location</th>
+                                                <th>Location Count</th>
                                                 <!--<th>Last Updated</th>-->
                                                 <th></th>
                                             </tr>
@@ -38,9 +38,12 @@
                                                         {% elif object.source.source_type == "remote" %}
                                                             <td colspan="1">{{ object.source.remote_username }}</td>
                                                         {% endif %}
-                                                    <td colspan="1">Location</td>
-                                                    <!--<td colspan="1">{{ object.last_updated_date }}</td>-->
-                                                    <td colspan="1"><a class="btn btn-secondary btn-sm" href="#">modify</a></td>
+                                                    <td colspan="1">{{ object.file_list.count }}</td>
+                                                    <td colspan="1">
+                                                        <a class="btn btn-secondary btn-sm"
+                                                           href="{% url 'elibot-scanner-files-detail' object.id %}">
+                                                            view
+                                                        </a></td>
                                                 </tr>
                                             {% endfor %}
 

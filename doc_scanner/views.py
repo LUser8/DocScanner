@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from .models import FilesAddress, Source, DriveUserInfo
+from .models import FilesAddress, Source, DriveUserInfo, FileLoc
 from django.urls import reverse_lazy
 from .models import GoogleAppConfiguration
 import socket
@@ -157,10 +157,35 @@ class FileAddressListView(LoginRequiredMixin, ListView):
     template_name = "doc_scanner_admin/file_address_list.html"
 
 
+def func_redirect_logic(request):
+    context = {
+        'request': request
+    }
+    return render(request, "doc_scanner_admin/test.html", context)
+
+
 class FileAddressCreateView(LoginRequiredMixin, CreateView):
     model = FilesAddress
     fields = ['source', 'file_list']
     template_name = "doc_scanner_admin/file_address_create.html"
+
+    def form_valid(self, form):
+        # print("length:", self.request.POST.getlist("file_list-file_address"))
+        file_loc_data = zip(
+            self.request.POST.getlist("file_list-file_address"),
+            self.request.POST.getlist("file_list-file_name"),
+            self.request.POST.getlist("file_list-file_mime_type"),
+        )
+        file_loc_obj = []
+        for file in file_loc_data:
+            obj = FileLoc(file_address=file[0], file_mime_type=file[2], file_name=file[1])
+            file_loc_obj.append(obj)
+        FilesAddress.objects.create(
+            source=form.cleaned_data.get("source"),
+            file_list=file_loc_obj
+        )
+
+        return redirect('elibot-scanner-files-list')
 
     # def get_context_data(self, **kwargs):
     #     # Call the base implementation first to get a context
@@ -169,6 +194,11 @@ class FileAddressCreateView(LoginRequiredMixin, CreateView):
     #     context['source'] = Source.objects.all()
     #
     #     return context
+
+
+class FileAddressDetailView(LoginRequiredMixin, DetailView):
+    model = FilesAddress
+    template_name = "doc_scanner_admin/file_address_detail.html"
 
 
 class SourceListView(LoginRequiredMixin, ListView):

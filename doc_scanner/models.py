@@ -1,6 +1,7 @@
 from django.db import models as django_models
 from djongo import models as djongo_models
 from django.urls import reverse
+from django import forms
 
 
 class GoogleAppConfiguration(django_models.Model):
@@ -70,11 +71,19 @@ class FileLoc(djongo_models.Model):
         abstract = True
 
 
+class FileLocForm(forms.ModelForm):
+    class Meta:
+        model = FileLoc
+        fields = ['file_name', 'file_mime_type', 'file_address']
+
+
 class FilesAddress(djongo_models.Model):
 
     source = djongo_models.ForeignKey(Source, on_delete=djongo_models.CASCADE)
     file_list = djongo_models.ArrayModelField(
-        model_container=FileLoc, blank=True
+        model_container=FileLoc,
+        model_form_class=FileLocForm,
+        blank=True
     )
     creation_date = djongo_models.DateTimeField(auto_now_add=True)
     last_updated_date = djongo_models.DateTimeField(auto_now=True)

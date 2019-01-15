@@ -39,7 +39,7 @@
                                 </table>
                             </div>
                             <div id="id_form_files">
-                                {{ form.file_list|as_crispy_field }}
+                                <!--{{ form.file_list|as_crispy_field }}-->
                                 <input type="hidden" name="file_list-TOTAL_FORMS" value="1" id="id_file_list-TOTAL_FORMS">
                                 <input type="hidden" name="file_list-INITIAL_FORMS" value="0" id="id_file_list-INITIAL_FORMS">
                                 <input type="hidden" name="file_list-MIN_NUM_FORMS" value="0" id="id_file_list-MIN_NUM_FORMS">
@@ -118,31 +118,29 @@
 
                     let file_address = document.createElement("input");
                     file_address.setAttribute("type", "text");
-                    file_address.setAttribute("name", "file_list-"+count.toString()+'-file_address');
+                    file_address.setAttribute("name", "file_list-file_address");
+                    // file_address.setAttribute("name", "file_list-"+count.toString()+'-file_address');
                     file_address.setAttribute("value", obj.files[i].id);
                     file_address.setAttribute("id", "id_file_list-"+count.toString()+"-file_address");
 
                     let file_name = document.createElement("input");
                     file_name.setAttribute("type", "text");
-                    file_name.setAttribute("name", "file_list-"+count.toString()+'-file_name');
+                    file_name.setAttribute("name", "file_list-file_name");
+                    // file_name.setAttribute("name", "file_list-"+count.toString()+'-file_name');
                     file_name.setAttribute("id", "id_file_list-"+count.toString()+'-file_name');
                     file_name.setAttribute("value", obj.files[i].name);
 
                     let file_type = document.createElement("input");
                     file_type.setAttribute("type", "text");
-                    file_type.setAttribute("name", "file_list-"+count.toString()+'-file_mime_type');
+                    file_type.setAttribute("name", "file_list-file_mime_type");
+                    // file_type.setAttribute("name", "file_list-"+count.toString()+'-file_mime_type');
                     file_type.setAttribute("id", "id_file_list-"+count.toString()+'-file_mime_type');
                     file_type.setAttribute("value", obj.files[i].mimeType);
-
-                    let file_delete = document.createElement("input");
-                    file_delete.setAttribute("type", "checkbox");
-                    file_delete.setAttribute("name", "file_list-"+count.toString()+'-DELETE');
-                    file_delete.setAttribute("id", "id_file_list-"+count.toString()+'-DELETE');
 
                     form_files.appendChild(file_address);
                     form_files.appendChild(file_name);
                     form_files.appendChild(file_type);
-                    form_files.appendChild(file_delete);
+                    // form_files.appendChild(file_delete);
 
                     count++;
                 }
@@ -157,3 +155,10 @@
     });
 </script>
 {% endblock %}
+
+
+
+                    <!--let file_delete = document.createElement("input");-->
+                    <!--file_delete.setAttribute("type", "checkbox");-->
+                    <!--file_delete.setAttribute("name", "file_list-"+count.toString()+'-DELETE');-->
+                    <!--file_delete.setAttribute("id", "id_file_list-"+count.toString()+'-DELETE');-->
