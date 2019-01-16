@@ -247,7 +247,7 @@ class SourceCreateView(LoginRequiredMixin, CreateView):
 
 class SourceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Source
-    fields = ['source_type', 'source_name', 'drive_userId', 'remote_systemIP', 'remote_username', 'remote_password']
+    fields = ['source_type', 'drive_userId', 'remote_systemIP', 'remote_username', 'remote_password']
     template_name = 'doc_scanner_admin/source_form.html'
 
     def test_func(self):

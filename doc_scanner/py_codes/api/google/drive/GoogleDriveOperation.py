@@ -155,7 +155,7 @@ class GoogleDriveOperation:
 
         _fh.seek(0)
 
-        file_name = os.path.join(settings.BASE_DIR, 'media', file_info['name']+".xlsx")
+        file_name = os.path.join(settings.BASE_DIR, 'media', file_info['name'])
         with io.open(file_name, "wb") as f:
             _fh.seek(0)
             f.write(_fh.read())
