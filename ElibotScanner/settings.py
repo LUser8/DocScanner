@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'Elibot_Scanner',
-        'HOST': '192.168.0.3',
+        'HOST': '192.168.0.5',
         'PORT': 27017,
         'ENFORCE_SCHEMA': True
     }

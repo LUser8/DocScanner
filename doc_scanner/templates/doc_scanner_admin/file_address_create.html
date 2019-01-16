@@ -63,17 +63,20 @@
     var form_list = document.getElementById("id_form_list");
     var form_files = document.getElementById("id_form_files");
 
+    // ajax call
     source.addEventListener("change", function(){
         var tbody_ = document.getElementsByTagName("tbody");
         tbody_[0].parentNode.removeChild(tbody_[0]);
         source_id = source.value;
-        var url = '{% url "elibot-scanner-source-files-list" 0 %}'.replace('0', source_id);
+        var operation = "get_all_file_info";
+        var url = '{% url "elibot-scanner-source-files-list" 0 1 %}'.replace('0', source_id).replace('1', operation);
         xhr.open('GET', url);
         xhr.onload = function() {
         if (xhr.status === 200) {
             obj = JSON.parse(xhr.responseText);
             console.log(obj.files.length);
             console.log(obj.files);
+            console.log(obj);
             if (obj.files.length > 0){
                 var tbody = document.createElement("tbody");
                 for (var i=0; i<obj.files.length; i++){

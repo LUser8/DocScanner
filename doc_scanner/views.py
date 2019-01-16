@@ -14,7 +14,9 @@ from googleapiclient.discovery import build
 from oauth2client.client import OAuth2Credentials
 from httplib2 import Http
 from django.http import JsonResponse
-
+from .py_codes.api.google.drive.GoogleDriveOperation import GoogleDriveOperation
+from django.http.response import HttpResponseBadRequest, HttpResponse
+from flask import send_file
 
 CLIENT_ID = ''
 CLIENT_SECRET = ''
@@ -72,21 +74,44 @@ def auth_code_handler(request):
 
 
 @login_required
-def file_list(request, pk):
+def file_operations(request, pk, operation):
     src = Source.objects.get(id=pk)
 
+    if not operation:
+        return HttpResponseBadRequest(400, "Operation type not given")
+
     if src.source_type == 'google_drive':
-        _creds = OAuth2Credentials(
-            client_id=CLIENT_ID,
-            client_secret=CLIENT_SECRET,
-            refresh_token=src.drive_refresh_token,
-            access_token=src.drive_access_token,
-            token_expiry=src.drive_token_expiry,
-            token_uri="https://oauth2.googleapis.com/token",
-            user_agent=None
-        )
-        service = build('drive', 'v3', http=_creds.authorize(Http()))
-        return JsonResponse(service.files().list().execute())
+        drive = GoogleDriveOperation(CLIENT_ID, CLIENT_SECRET, src)
+
+        if drive.notlinked:
+            return HttpResponseBadRequest("Account not linked!")
+
+        if operation == 'get_all_file_info':
+            return JsonResponse(drive.get_all_files_info())
+
+        if operation == 'download':
+            try:
+                print(operation)
+                file_id = request.POST.get("file_id")
+                print("Post Data", request.POST.get("file_id"))
+                file_info = drive.get_file_info(file_id)
+
+                print("file_info:", file_info)
+                # TODO: check permissions
+
+                if request.POST.get("export_to") == 'application/vnd.google-apps.spreadsheet':
+                    fp = drive.download(file_id, file_info, export_to=request.POST.get("export_to"))
+                else:
+                    fp = drive.download(file_id, file_info)
+                messages.success(request, "File downloaded successfully")
+                print("success")
+                # return HttpResponse("Hello")
+                return redirect("elibot-scanner-files-detail", pk=request.POST.get("addr_id"))
+
+            except Exception as e:
+                print(e)
+                return HttpResponseBadRequest(400, str(e))
+
     elif src.source_type == 'remote_system':
         pass
 

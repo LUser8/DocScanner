@@ -24,28 +24,71 @@
                       </thead>
                       <tbody>
                         {% for file in object.file_list %}
-                            <tr>
-                                <td colspan="1">{{ file.file_name }}</td>
-                                <td colspan="1">{{ file.file_mime_type }}</td>
-                                <td colspan="1">
-                                    <a class="btn btn-secondary btn-sm" href="#">
-                                        edit
-                                    </a></td>
-                            </tr>
+                                <tr>
+                                    <td colspan="1">{{ file.file_name }}</td>
+                                    <td colspan="1">{{ file.file_mime_type }}</td>
+                                    <td colspan="1">
+                                        <form action="post" class="file_download" source_id="{{ object.source.id }}">
+                                            {% csrf_token %}
+                                            <input typeof="text" name="addr_id" value="{{ object.id }}" hidden>
+                                            <input typeof="text" name="file_id" value="{{ file.file_address }}" hidden>
+                                            <input typeof="text" name="export_to" value="{{ file.file_mime_type }}" hidden>
+                                            <button class="btn btn-secondary btn-sm"  type="submit">Download</button>
+                                        </form>
+                                        <!--<a class="btn btn-secondary btn-sm file_download"-->
+                                           <!--source_id="{{ object.source.id }}"-->
+                                           <!--file_id="{{ file.file_address }}"-->
+                                           <!--mime_type="{{ file.file_mime_type }}"-->
+                                           <!--href="#">-->
+                                            <!--download-->
+                                        <!--</a>-->
+                                    </td>
+                                </tr>
                         {% endfor %}
                       </tbody>
                 </table>
             <div class="row">
                 <div class="col-6">
-                    <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-update' object.id %}">update</a>
-                    <a class="btn btn-primary btn-sm" href="{% url 'elibot-scanner-source-delete' object.id%}">delete</a>
+                    <a class="btn btn-primary btn-sm" href="#">update</a>
+                    <a class="btn btn-primary btn-sm" href="#">delete</a>
                 </div>
                 <div class="col-6">
                     <a class="btn btn-secondary btn-sm" href="{% url 'elibot-scanner-files-list' %}">View Files</a>
                 </div>
             </div>
         </div>
-
     </div>
+
+    <script>
+        var file_downloads = document.getElementsByClassName("file_download");
+
+        // ajax call
+        var xhr = new XMLHttpRequest();
+
+        for (let i=0; i < file_downloads.length; i++){
+            file_downloads[i].addEventListener("submit", function(event){
+                event.preventDefault();
+
+                console.log("enter");
+                var source_id = file_downloads[i].getAttribute("source_id");
+                var operation = "download";
+                var url = '{% url "elibot-scanner-source-files-list" 0 1 %}'.replace('0', source_id).replace('1', operation);
+                var form_data = new FormData(file_downloads[i]);
+                // form_data.append("file_id", file_downloads[i].getAttribute("file_id"));
+                // form_data.append("export_to", file_downloads[i].getAttribute("mime_type"));
+                console.log(form_data.keys());
+                xhr.open('post', url);
+
+                if (xhr.status === 200) {
+                    // alert("File Download start");
+                    // obj = JSON.parse(xhr.responseText);
+                    console.log(xhr.responseText)
+                }
+
+                xhr.send(form_data);
+            });
+        }
+
+    </script>
 {% endblock %}
 
